@@ -1,0 +1,1 @@
+docker run --name nfe_database -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=nfe -p 3306:3306 -d mysql

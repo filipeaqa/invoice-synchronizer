@@ -1,0 +1,21 @@
+spring:
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    datasource:
+        url: jdbc:h2:mem:nfe;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;INIT=CREATE SCHEMA IF NOT EXISTS nfe
+        username:
+        password:
+        datasource:
+            platform: mysql
+arquivei:
+    api:
+        url: https://test
+        x-api-id: test
+        x-api-key: test
+        cursor: 0
+        limit: 5

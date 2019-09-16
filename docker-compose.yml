@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+    mysql:
+        container_name: mysql_nfe
+        image: mysql/mysql-server:5.7
+        environment:
+            MYSQL_DATABASE: nfe
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ROOT_HOST: "%"
+        ports:
+            - "3306:3306"
+        restart: always
+        networks:
+            vpcbr:
+                ipv4_address: 10.5.0.5
+
+    web:
+        container_name: invoice_synchronizer
+        image: "filipeaqa/invoice-synchronizer:latest"
+        ports:
+            - "8080:8080"
+        restart: always
+        depends_on:
+            - mysql
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+        networks:
+            vpcbr:
+                ipv4_address: 10.5.0.6
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
