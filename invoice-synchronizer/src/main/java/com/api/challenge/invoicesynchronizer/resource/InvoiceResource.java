@@ -4,6 +4,8 @@ import com.api.challenge.invoicesynchronizer.entity.InvoiceEntity;
 import com.api.challenge.invoicesynchronizer.repository.InvoiceRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/invoices")
@@ -18,6 +20,11 @@ public class InvoiceResource {
     @GetMapping("/{key}")
     InvoiceEntity findByAccessKey(@PathVariable String key) {
         return repository.findByInvoiceKey(key);
+    }
+
+    @GetMapping
+    List<InvoiceEntity> findAll() {
+        return repository.findAll();
     }
 }
 
