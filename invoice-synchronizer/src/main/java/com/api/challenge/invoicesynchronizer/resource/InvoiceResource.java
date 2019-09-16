@@ -1,30 +1,37 @@
 package com.api.challenge.invoicesynchronizer.resource;
 
 import com.api.challenge.invoicesynchronizer.entity.InvoiceEntity;
-import com.api.challenge.invoicesynchronizer.repository.InvoiceRepository;
-import org.springframework.web.bind.annotation.*;
+import com.api.challenge.invoicesynchronizer.service.InvoiceService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @RestController
 @RequestMapping("/invoices")
 public class InvoiceResource {
 
-    private InvoiceRepository repository;
+    private InvoiceService service;
 
-    public InvoiceResource(InvoiceRepository repository) {
-        this.repository = repository;
+    public InvoiceResource(InvoiceService repository) {
+        this.service = repository;
     }
 
-    @GetMapping("/{key}")
-    InvoiceEntity findByAccessKey(@PathVariable String key) {
-        return repository.findByInvoiceKey(key);
+    @GetMapping("/{accessKey}")
+    ResponseEntity<InvoiceEntity> findByAccessKey(@PathVariable String accessKey) throws NoSuchElementException {
+        InvoiceEntity entity = service.findByAccessKey(accessKey);
+        return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 
     @GetMapping
     List<InvoiceEntity> findAll() {
-        return repository.findAll();
+        return service.findAll();
     }
 }
 
