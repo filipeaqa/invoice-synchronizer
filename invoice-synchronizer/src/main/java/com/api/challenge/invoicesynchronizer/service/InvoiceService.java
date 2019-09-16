@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 @Service
 public class InvoiceService {
 
-    InvoiceRepository invoiceRepository;
+    private InvoiceRepository invoiceRepository;
 
     public InvoiceService(InvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;
